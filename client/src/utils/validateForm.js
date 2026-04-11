@@ -1,0 +1,1 @@
+// validateForm.js placeholder

@@ -1,0 +1,1 @@
+// technicianController.js placeholder

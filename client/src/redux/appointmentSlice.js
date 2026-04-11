@@ -1,0 +1,1 @@
+// appointmentSlice.js placeholder

@@ -1,0 +1,1 @@
+// InvoiceCard.jsx placeholder
