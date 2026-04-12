@@ -28,6 +28,10 @@ const vehicleSchema = new mongoose.Schema(
 			min: 1900,
 			max: new Date().getFullYear(),
 		},
+		imageUrl: {
+			type: String,
+			required: false,
+		},
 	},
 	{
 		timestamps: true,

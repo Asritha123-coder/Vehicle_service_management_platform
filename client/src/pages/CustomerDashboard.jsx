@@ -92,6 +92,7 @@ const CustomerDashboard = () => {
             <Link to="/customer/vehicles" className="btn-secondary no-underline text-center">My Vehicles</Link>
             <Link to="/customer/history" className="btn-secondary no-underline text-center">Service History</Link>
             <Link to="/customer/invoices" className="btn-secondary no-underline text-center">Pay Invoices</Link>
+            {/* Updated to point to CustomerInvoices page */}
           </div>
         </div>
       </div>

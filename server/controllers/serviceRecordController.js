@@ -3,6 +3,8 @@ import ServiceRecord from "../models/ServiceRecord.js";
 import Vehicle from "../models/Vehicle.js";
 import Invoice from "../models/Invoice.js";
 import calculateServiceCost from "../utils/calculateServiceCost.js";
+import { sendEmail } from "../utils/emailService.js";
+import { getCustomerDataByVehicle } from "../utils/userUtils.js";
 
 // Add a new service record
 export const addServiceRecord = async (req, res) => {
@@ -26,6 +28,22 @@ export const addServiceRecord = async (req, res) => {
 		);
 
 		res.status(201).json({ message: "Service record added and appointment status updated.", record });
+
+        // --- ASYNC EMAIL NOTIFICATION ---
+        (async () => {
+            try {
+                const customer = await getCustomerDataByVehicle(vehicleId);
+                if (customer) {
+                    await sendEmail(
+                        customer.email,
+                        `Service Started - ${customer.model}`,
+                        `Hi ${customer.name},\n\nWe have started working on your ${customer.model}.\n\nInitial Details: ${repairDetails || "Service initiated."}\nStatus: ${serviceStatus || "IN_PROGRESS"}`
+                    );
+                }
+            } catch (err) {
+                console.error("Deferred Service Add Email Error:", err.message);
+            }
+        })();
 	} catch (error) {
 		res.status(500).json({ message: "Server error.", error: error.message });
 	}
@@ -86,29 +104,35 @@ export const updateServiceStatus = async (req, res) => {
 			apptUpdate
 		);
 
-		// If service is completed, create an invoice if not already exists
-		if (serviceStatus === "COMPLETED") {
-			// Simulate cost calculation (replace with real logic if needed)
-			let totalAmount = 500; // Default simulated cost
-			try {
-				if (typeof calculateServiceCost === "function") {
-					totalAmount = await calculateServiceCost(record);
-				}
-			} catch (e) {}
 
-			// Check if invoice already exists for this service/vehicle (avoid duplicates)
-			const existingInvoice = await Invoice.findOne({ vehicleId: record.vehicleId }).sort({ createdAt: -1 });
-			if (!existingInvoice || existingInvoice.paymentStatus === "Paid") {
-				const invoice = new Invoice({
-					vehicleId: record.vehicleId,
-					totalAmount,
-					paymentStatus: "PENDING"
-				});
-				await invoice.save();
-			}
-		}
 
 		res.status(200).json({ message: "Service status, appointment, and invoice updated.", record });
+
+        // --- ASYNC EMAIL NOTIFICATIONS ---
+        (async () => {
+            try {
+                const customer = await getCustomerDataByVehicle(record.vehicleId);
+                if (!customer) return;
+
+				if (serviceStatus === "COMPLETED") {
+					// Send Service Completed Email
+					await sendEmail(
+						customer.email,
+						`Service Completed - ${customer.model}`,
+						`Hi ${customer.name},\n\nGreat news! Your ${customer.model} has been serviced and is now ready for pickup.\n\nRepair Details: ${repairDetails || "Completed successfully."}`
+					);
+                } else if (serviceStatus || repairDetails) {
+                    // Send Status Update Email
+                    await sendEmail(
+                        customer.email,
+                        `Service Update - ${customer.model}`,
+                        `Hi ${customer.name},\n\nThere is a new update on your ${customer.model} service.\n\nStatus: ${serviceStatus || record.serviceStatus}\nDetails: ${repairDetails || record.repairDetails || "Ongoing"}`
+                    );
+                }
+            } catch (err) {
+                console.error("Deferred Service Update Email Error:", err.message);
+            }
+        })();
 	} catch (error) {
 		res.status(500).json({ message: "Server error.", error: error.message });
 	}

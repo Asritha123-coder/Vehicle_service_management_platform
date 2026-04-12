@@ -1,8 +1,7 @@
-
+import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
 
 
 import authRoutes from "./routes/authRoutes.js";
@@ -14,7 +13,6 @@ import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
 
-dotenv.config();
 
 const app = express();
 
@@ -39,9 +37,24 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("MongoDB Connected ✅"))
 .catch((err) => console.log(err));
 
+import { sendEmail } from "./utils/emailService.js";
+
 // test route
 app.get("/", (req, res) => {
   res.send("API is running 🚀");
+});
+
+app.get("/api/test-email", async (req, res) => {
+    try {
+        await sendEmail(
+            process.env.EMAIL, // Send to self
+            "Test Email - Vehicle Service",
+            "Nodemailer is working correctly! 🚀"
+        );
+        res.status(200).send("Email sent successfully. Check your inbox and server logs.");
+    } catch (error) {
+        res.status(500).json({ message: "Failed to send email", error: error.message });
+    }
 });
 
 const PORT = process.env.PORT || 5000;

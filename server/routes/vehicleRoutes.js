@@ -1,12 +1,13 @@
 import express from "express";
 import { addVehicle, getUserVehicles, deleteVehicle } from "../controllers/vehicleController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
+import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
 // @route   POST /add
 // @desc    Add a new vehicle (protected)
-router.post("/add", authMiddleware, addVehicle);
+router.post("/add", authMiddleware, upload.single("image"), addVehicle);
 
 // @route   GET /my
 // @desc    Get all vehicles for authenticated user (protected)

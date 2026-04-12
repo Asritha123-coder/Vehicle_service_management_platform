@@ -22,6 +22,7 @@ import ServiceHistory from './pages/ServiceHistory';
 import TrackService from './pages/TrackService';
 import Payments from './pages/Payments';
 import Checkout from './pages/Checkout';
+import CustomerInvoices from './pages/CustomerInvoices';
 
 // Technician Pages
 import TechnicianDashboard from './pages/TechnicianDashboard';
@@ -67,7 +68,7 @@ function App() {
         <Route path="/customer/appointments" element={<BookService />} />
         <Route path="/customer/history" element={<ServiceHistory />} />
         <Route path="/customer/track" element={<TrackService />} />
-        <Route path="/customer/invoices" element={<Payments />} />
+        <Route path="/customer/invoices" element={<CustomerInvoices />} />
         <Route path="/customer/checkout/:id" element={<Checkout />} />
       </Route>
 

@@ -64,75 +64,91 @@ const MyVehicles = () => {
             </div>}
 
             {vehicles.length === 0 ? (
-                <div className="glass-card p-12 text-center flex flex-col items-center">
-                    <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-slate-500 mb-6">
+                <div className="bg-slate-900 border border-white/5 p-12 text-center rounded-3xl flex flex-col items-center">
+                    <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center text-slate-500 mb-6 font-bold">
                         <Car size={40} />
                     </div>
                     <h3 className="text-xl font-bold mb-2">No Vehicles Registered</h3>
-                    <p className="text-slate-500 mb-8 max-w-sm">Add your first vehicle to start booking service appointments and tracking history.</p>
+                    <p className="text-slate-500 mb-8 max-w-sm text-sm">Add your first vehicle to start booking service appointments and tracking history.</p>
                     <button 
                         onClick={() => navigate("/customer/vehicles/add")}
-                        className="btn-primary py-3 px-8"
+                        className="btn-primary py-3 px-8 text-sm"
                     >
                         Get Started
                     </button>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {vehicles.map((v) => (
-                        <div key={v._id} className="glass-card group hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
-                            {/* Accent Decoration */}
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <Car size={80} className="-rotate-12 translate-x-4 -translate-y-4" />
+                        <div key={v._id} className="bg-slate-900 border border-white/10 rounded-[2rem] overflow-hidden group hover:border-primary/50 transition-all duration-300 shadow-xl">
+                            {/* Vehicle Image / Placeholder */}
+                            <div className="relative aspect-video w-full bg-slate-800 overflow-hidden">
+                                {v.imageUrl ? (
+                                    <img 
+                                        src={v.imageUrl} 
+                                        alt={v.model} 
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-slate-700 bg-gradient-to-br from-slate-800 to-slate-900">
+                                        <Car size={64} className="opacity-50" />
+                                    </div>
+                                )}
+                                <div className="absolute top-4 left-4">
+                                    <span className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-wider text-white border border-white/10">
+                                        {v.fuelType}
+                                    </span>
+                                </div>
                             </div>
 
-                            <div className="p-6">
+                            <div className="p-8">
                                 <div className="flex justify-between items-start mb-6">
-                                    <div className="p-3 bg-primary/20 rounded-xl text-primary">
-                                        <Car size={24} />
+                                    <div>
+                                        <h3 className="text-2xl font-bold tracking-tight text-white mb-1">{v.model}</h3>
+                                        <p className="text-xs font-mono font-bold text-primary tracking-widest uppercase">{v.vehicleNumber}</p>
                                     </div>
                                     <button 
                                         onClick={() => handleDelete(v._id)}
-                                        className="p-2 text-slate-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
-                                        title="Delete Vehicle"
+                                        className="p-3 text-slate-500 hover:text-red-500 hover:bg-red-500/10 rounded-2xl transition-all"
+                                        title="Remove Vehicle"
                                     >
-                                        <Trash2 size={18} />
+                                        <Trash2 size={20} />
                                     </button>
                                 </div>
 
-                                <div className="space-y-4">
-                                    <div>
-                                        <h3 className="text-xl font-bold tracking-tight">{v.model}</h3>
-                                        <div className="flex items-center gap-2 mt-1">
-                                            <span className="px-2 py-0.5 bg-white/10 rounded text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
-                                                {v.vehicleNumber}
-                                            </span>
+                                <div className="grid grid-cols-2 gap-4 mb-8">
+                                    <div className="bg-white/5 rounded-2xl p-3 flex items-center gap-3 border border-white/5">
+                                        <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                                            <Fuel size={14} />
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] uppercase font-bold text-slate-500 leading-none mb-1">Fuel</p>
+                                            <p className="text-sm font-semibold text-slate-200 leading-none">{v.fuelType}</p>
                                         </div>
                                     </div>
-
-                                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
-                                        <div className="flex items-center gap-2 text-slate-400">
-                                            <Fuel size={14} className="text-primary" />
-                                            <span className="text-xs font-medium">{v.fuelType}</span>
+                                    <div className="bg-white/5 rounded-2xl p-3 flex items-center gap-3 border border-white/5">
+                                        <div className="p-2 bg-secondary/10 rounded-lg text-secondary">
+                                            <Calendar size={14} />
                                         </div>
-                                        <div className="flex items-center gap-2 text-slate-400">
-                                            <Calendar size={14} className="text-primary" />
-                                            <span className="text-xs font-medium">{v.purchaseYear}</span>
+                                        <div>
+                                            <p className="text-[10px] uppercase font-bold text-slate-500 leading-none mb-1">Year</p>
+                                            <p className="text-sm font-semibold text-slate-200 leading-none">{v.purchaseYear}</p>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <button 
                                     onClick={() => navigate("/customer/appointments", { state: { vehicleId: v._id } })}
-                                    className="w-full mt-6 py-3 rounded-xl bg-white/5 hover:bg-primary hover:text-white flex items-center justify-center gap-2 text-xs font-bold transition-all group-hover:shadow-glow"
+                                    className="w-full py-4 rounded-2xl bg-primary text-white flex items-center justify-center gap-3 text-sm font-bold transition-all hover:bg-primary-hover hover:shadow-glow shadow-lg"
                                 >
-                                    Book Service <ArrowRight size={14} />
+                                    Book Service Appointment <ArrowRight size={18} />
                                 </button>
                             </div>
                         </div>
                     ))}
                 </div>
             )}
+
         </div>
     );
 };

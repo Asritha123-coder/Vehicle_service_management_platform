@@ -3,6 +3,9 @@ import Vehicle from "../models/Vehicle.js";
 // Add a new vehicle
 export const addVehicle = async (req, res) => {
 	try {
+        if (!req.user || !req.user._id) {
+            return res.status(401).json({ message: "Authentication required." });
+        }
 		const { vehicleNumber, model, fuelType, purchaseYear } = req.body;
 		if (!vehicleNumber || !model || !fuelType || !purchaseYear) {
 			return res.status(400).json({ message: "All fields are required." });
@@ -13,13 +16,16 @@ export const addVehicle = async (req, res) => {
 			model,
 			fuelType,
 			purchaseYear,
+			imageUrl: req.file ? req.file.path : null,
 		});
 		await vehicle.save();
 		res.status(201).json({ message: "Vehicle added successfully.", vehicle });
 	} catch (error) {
+		console.error("Add Vehicle Error:", error);
 		res.status(500).json({ message: "Server error.", error: error.message });
 	}
 };
+
 
 // Get all vehicles for authenticated user
 export const getUserVehicles = async (req, res) => {

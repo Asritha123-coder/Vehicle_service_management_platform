@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllAppointments, assignTechnician } from "../services/appointmentService";
 import api from "../services/api";
-import { Calendar, User } from "lucide-react";
+import { Calendar, User, FileText } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -9,6 +10,7 @@ const AdminAppointments = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -85,6 +87,14 @@ const AdminAppointments = () => {
                     }`}>
                       {appt.serviceStatus || appt.status}
                     </span>
+                    {(appt.serviceStatus || appt.status) === 'COMPLETED' && (
+                      <button 
+                        onClick={() => navigate('/admin/invoices')}
+                        className="flex items-center gap-1 mt-2 text-[10px] text-primary hover:text-primary/80 font-bold uppercase transition"
+                      >
+                        <FileText size={10} /> View Invoice
+                      </button>
+                    )}
                   </td>
                   <td className="px-4 py-4 text-sm">
                     {appt.technicianId?.name || <span className="text-slate-500 italic">Not Assigned</span>}

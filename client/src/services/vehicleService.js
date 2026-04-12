@@ -1,7 +1,11 @@
 import api from "./api";
 
 export const addVehicle = async (vehicleData) => {
-  const response = await api.post("/vehicle/add", vehicleData);
+  const response = await api.post("/vehicle/add", vehicleData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };
 
