@@ -9,19 +9,37 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    console.log('[AuthContext] Token from localStorage:', token);
     if (token) {
       try {
         const decoded = jwtDecode(token);
+        console.log('[AuthContext] Decoded token:', decoded);
         // Check if token is expired
         if (decoded.exp * 1000 < Date.now()) {
+          console.warn('[AuthContext] Token expired:', decoded.exp, Date.now());
           logout();
         } else {
-          const storedUser = JSON.parse(localStorage.getItem('user'));
-          setUser(storedUser);
+          if (storedUser) {
+            try {
+              const parsedUser = JSON.parse(storedUser);
+              console.log('[AuthContext] Parsed user from localStorage:', parsedUser);
+              setUser(parsedUser);
+            } catch (parseErr) {
+              console.error('[AuthContext] Failed to parse user:', parseErr);
+              logout();
+            }
+          } else {
+            console.warn('[AuthContext] No user found in localStorage');
+            logout();
+          }
         }
       } catch (error) {
+        console.error('[AuthContext] Failed to decode token:', error);
         logout();
       }
+    } else {
+      console.warn('[AuthContext] No token found in localStorage');
     }
     setLoading(false);
   }, []);

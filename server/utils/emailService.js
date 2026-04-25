@@ -26,7 +26,7 @@ export const sendEmail = async (to, subject, text) => {
         });
 
         const mailOptions = {
-            from: `"Vehicle Service Platform" <${email}>`,
+            from: `"ServiceHub Platform" <${email}>`,
             to,
             subject,
             text,

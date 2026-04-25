@@ -1,3 +1,3 @@
-# Vehicle Service Management Platform
+# ServiceHub Management Platform
 
 Project structure placeholder.

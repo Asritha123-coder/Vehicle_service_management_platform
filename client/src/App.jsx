@@ -11,6 +11,7 @@ import ServiceLayout from './components/layout/ServiceLayout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import HomePage from './pages/HomePage';
 import NotFound from './pages/NotFound';
 
 // Customer Pages
@@ -27,6 +28,7 @@ import CustomerInvoices from './pages/CustomerInvoices';
 // Technician Pages
 import TechnicianDashboard from './pages/TechnicianDashboard';
 import TechnicianHistory from './pages/TechnicianHistory';
+import TechnicianProfile from './pages/TechnicianProfile';
 
 // Admin / Staff Pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -45,7 +47,8 @@ function App() {
       {/* Public Routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/book-service" element={<ProtectedRoute allowedRoles={['customer']}><BookService /></ProtectedRoute>} />
+      <Route path="/" element={<HomePage />} />
 
       {/* Shared Protected Routes */}
       <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
@@ -77,7 +80,7 @@ function App() {
         <Route path="/technician" element={<TechnicianDashboard />} />
         <Route path="/technician/active" element={<TechnicianDashboard filter="IN_PROGRESS" />} />
         <Route path="/technician/history" element={<TechnicianHistory />} />
-        <Route path="/technician/profile" element={<div className="p-8 text-white">Technician Profile Component (Planned)</div>} />
+        <Route path="/technician/profile" element={<TechnicianProfile />} />
       </Route>
 
       {/* 404 Route */}

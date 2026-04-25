@@ -48,7 +48,7 @@ app.get("/api/test-email", async (req, res) => {
     try {
         await sendEmail(
             process.env.EMAIL, // Send to self
-            "Test Email - Vehicle Service",
+            "Test Email - ServiceHub",
             "Nodemailer is working correctly! 🚀"
         );
         res.status(200).send("Email sent successfully. Check your inbox and server logs.");

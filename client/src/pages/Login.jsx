@@ -18,11 +18,18 @@ const Login = () => {
     setError('');
     try {
       const data = await loginService({ email, password });
+      console.log('[Login] Login response:', data);
       login(data.token, data.user);
-      if (data.user.role === 'admin') navigate('/admin');
-      else if (data.user.role === 'service_center') navigate('/service-center');
-      else if (data.user.role === 'technician') navigate('/technician');
-      else navigate('/customer');
+      setTimeout(() => {
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        console.log('[Login] Token in localStorage after login:', token);
+        console.log('[Login] User in localStorage after login:', user);
+        if (data.user.role === 'admin') navigate('/admin');
+        else if (data.user.role === 'service_center') navigate('/service-center');
+        else if (data.user.role === 'technician') navigate('/technician');
+        else navigate('/customer');
+      }, 100);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
     } finally {

@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-
+import { 
+  Car, 
+  Wrench, 
+  Clock, 
+  CheckCircle, 
+  Play, 
+  Save, 
+  PlusCircle,
+  FileText,
+  AlertCircle
+} from "lucide-react";
 
 const TechnicianTaskCard = ({ appointment, onUpdate, onStatusChange }) => {
   const [repairDetails, setRepairDetails] = useState(appointment.repairDetails || "");
@@ -20,67 +30,99 @@ const TechnicianTaskCard = ({ appointment, onUpdate, onStatusChange }) => {
     setLoading(false);
   };
 
+  const getStatusConfig = (s) => {
+    switch(s) {
+      case 'IN_PROGRESS': return { color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20', icon: <Clock size={14} className="animate-spin" /> };
+      case 'COMPLETED': return { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', icon: <CheckCircle size={14} /> };
+      default: return { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', icon: <AlertCircle size={14} /> };
+    }
+  };
+
+  const config = getStatusConfig(status);
+
   return (
-    <div className="glass-card p-6 mb-4">
-      <div className="mb-2">
-        <span className="font-bold">Vehicle:</span> {appointment.vehicleId?.model} ({appointment.vehicleId?.vehicleNumber})
+    <div className="bg-slate-900/50 border border-slate-800 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden group hover:bg-slate-900 transition-all">
+      <div className="absolute top-0 right-0 p-8 text-slate-800/20 group-hover:text-slate-800/40 transition-colors pointer-events-none">
+        <Wrench size={100} strokeWidth={1} />
       </div>
-      <div className="mb-2">
-        <span className="font-bold">Service Type:</span> {appointment.serviceType}
-      </div>
-      <div className="mb-2">
-        <span className="font-bold">Appointment Date:</span> {new Date(appointment.appointmentDate).toLocaleDateString()}
-      </div>
-      <div className="mb-2">
-        <span className="font-bold text-white">Status:</span> 
-        <span className={`badge ml-2 ${
-          status === 'IN_PROGRESS' ? 'badge-info' : 
-          status === 'ASSIGNED' ? 'badge-warning' : 'badge-success'
-        }`}>
-          {status}
-        </span>
-      </div>
-      <div className="mb-2 mt-4">
-        <label className="font-bold text-slate-300">Repair Details:</label>
-        <textarea
-          className="input w-full mt-1 bg-white/5 border-white/10 text-white"
-          value={repairDetails}
-          onChange={e => setRepairDetails(e.target.value)}
-          rows={2}
-          placeholder="What's being fixed?"
-        />
-      </div>
-      <div className="mb-2">
-        <label className="font-bold text-slate-300">Replaced Parts:</label>
-        <input
-          className="input w-full mt-1 bg-white/5 border-white/10 text-white"
-          value={replacedParts}
-          onChange={e => setReplacedParts(e.target.value)}
-          placeholder="Specify parts used..."
-        />
-      </div>
-      <div className="flex gap-3 mt-6">
-        <button
-          className="btn btn-primary"
-          onClick={handleUpdate}
-          disabled={loading}
-        >
-          Update Record
-        </button>
-        <button
-          className="btn btn-info"
-          onClick={() => handleStatusChange("IN_PROGRESS")}
-          disabled={loading || status === "IN_PROGRESS" || status === "COMPLETED"}
-        >
-          Start Service
-        </button>
-        <button
-          className="btn btn-success"
-          onClick={() => handleStatusChange("COMPLETED")}
-          disabled={loading || status === "COMPLETED"}
-        >
-          Mark as Done
-        </button>
+
+      <div className="relative z-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-8 border-b border-white/5">
+          <div className="flex items-center gap-5">
+            <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center p-2 border border-white/5">
+              <Car size={32} className="text-slate-400" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-white leading-tight tracking-tight">{appointment.vehicleId?.model || "Standard Vehicle"}</p>
+              <p className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mt-1">{appointment.vehicleId?.vehicleNumber || "NO PLATE"}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:items-end gap-3">
+             <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${config.bg} ${config.border} ${config.color} text-[10px] font-black uppercase tracking-widest`}>
+                {config.icon}
+                {status?.replace('_', ' ')}
+             </div>
+             <p className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
+               <Wrench size={14} /> {appointment.serviceType}
+             </p>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+           <div className="space-y-4">
+              <label className="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
+                <FileText size={14} /> Repair Observations
+              </label>
+              <textarea
+                className="w-full bg-slate-950/50 border border-white/10 rounded-2xl p-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                value={repairDetails}
+                onChange={e => setRepairDetails(e.target.value)}
+                rows={3}
+                placeholder="What observations have you made? Specify the issues fixed..."
+              />
+           </div>
+           <div className="space-y-4">
+              <label className="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
+                <PlusCircle size={14} /> Replaced Components
+              </label>
+              <input
+                className="w-full bg-slate-950/50 border border-white/10 rounded-2xl p-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                value={replacedParts}
+                onChange={e => setReplacedParts(e.target.value)}
+                placeholder="List parts used (e.g. Oil Filter, Brake Pads)"
+              />
+              <p className="text-[10px] font-bold text-slate-600 uppercase italic">Separate multiple items with commas.</p>
+           </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-4">
+          <button
+            onClick={handleUpdate}
+            disabled={loading}
+            className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-black text-[11px] uppercase tracking-widest transition-all disabled:opacity-50"
+          >
+            <Save size={16} /> Save Progress
+          </button>
+
+          <div className="h-4 w-[1px] bg-slate-800 mx-2"></div>
+
+          <button
+            onClick={() => handleStatusChange("IN_PROGRESS")}
+            disabled={loading || status === "IN_PROGRESS" || status === "COMPLETED"}
+            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-800 text-white px-6 py-3 rounded-xl font-black text-[11px] uppercase tracking-widest transition-all disabled:opacity-40"
+          >
+            <Play size={16} /> Start Service
+          </button>
+
+          <button
+            onClick={() => handleStatusChange("COMPLETED")}
+            disabled={loading || status === "COMPLETED"}
+            className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-800 text-white px-6 py-3 rounded-xl font-black text-[11px] uppercase tracking-widest transition-all disabled:opacity-40"
+          >
+            <CheckCircle size={16} /> Mark Complete
+          </button>
+        </div>
       </div>
     </div>
   );

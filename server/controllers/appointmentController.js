@@ -32,9 +32,9 @@ export const assignTechnician = async (req, res) => {
                 const customer = await getCustomerDataByVehicle(appointment.vehicleId);
                 if (customer) {
                     await sendEmail(
-                        customer.email,
-                        "Technician Assigned - Vehicle Service",
-                        `A technician has been assigned to your ${appointment.serviceType} appointment. Status: ${appointment.status}`
+						customer.email,
+						"Technician Assigned - ServiceHub",
+						`A technician has been assigned to your ${appointment.serviceType} appointment. Status: ${appointment.status}`
                     );
                 }
             } catch (err) {
@@ -74,9 +74,9 @@ export const bookAppointment = async (req, res) => {
                 const customer = await getCustomerDataByVehicle(appointment.vehicleId);
                 if (customer) {
                     await sendEmail(
-                        customer.email,
-                        "Appointment Booked - Vehicle Service",
-                        `Your appointment for ${serviceType} has been successfully booked for ${new Date(appointmentDate).toLocaleString()}.`
+						customer.email,
+						"Appointment Booked - ServiceHub",
+						`Your appointment for ${serviceType} has been successfully booked for ${new Date(appointmentDate).toLocaleString()}.`
                     );
                 }
             } catch (err) {
@@ -126,9 +126,9 @@ export const updateAppointmentStatus = async (req, res) => {
         (async () => {
             try {
                 const customer = await getCustomerDataByVehicle(appointment.vehicleId);
-                if (customer) {
-                    const subject = status === "COMPLETED" ? "Service Completed - Vehicle Service" : "Service Update - Vehicle Service";
-                    const message = status === "COMPLETED" 
+				if (customer) {
+					const subject = status === "COMPLETED" ? "Service Completed - ServiceHub" : "Service Update - ServiceHub";
+					const message = status === "COMPLETED"
                         ? `Great news! Your ${appointment.serviceType} is completed and your vehicle is ready for pickup.`
                         : `Update: Your ${appointment.serviceType} service status has been updated to: ${status}.`;
 

@@ -40,7 +40,7 @@ const CustomerInvoices = () => {
       <div className="glass-card p-8 animate-in fade-in duration-300">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="border-b border-white/10 text-xs uppercase text-slate-500 font-bold">
+            <thead className="border-b border-white/10 text-xs uppercase text-white font-bold bg-blue-800">
               <tr>
                 <th className="px-4 py-4">Vehicle Details</th>
                 <th className="px-4 py-4">Amount</th>

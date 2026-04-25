@@ -9,61 +9,134 @@ const TechnicianHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        // Only fetch records where the logged-in technician is the technicianId
         const allRecords = await getServiceHistory();
-        setHistory(allRecords.filter(r => r.serviceStatus === "COMPLETED"));
+
+        setHistory(
+          allRecords.filter(
+            (record) => record.serviceStatus === "COMPLETED"
+          )
+        );
       } catch (err) {
         setError("Failed to load technician history.");
       } finally {
         setLoading(false);
       }
     };
+
     fetchHistory();
   }, []);
 
-  if (loading) return <div className="main-content">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-slate-500 text-lg font-semibold">
+        Loading...
+      </div>
+    );
+  }
 
   return (
-    <div className="main-content">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold">Completed Jobs</h1>
-        <p className="text-muted">All services you have completed as a technician.</p>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 px-6 py-12">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-black text-slate-800 mb-2">
+            Completed Jobs
+          </h1>
+          <p className="text-slate-500">
+            All services you have completed as a technician
+          </p>
+        </div>
 
-      {error && <div className="glass-card p-4 mb-6 text-red-400">{error}</div>}
+        {/* Error */}
+        {error && (
+          <div className="mb-6 bg-red-50 text-red-500 px-5 py-4 rounded-2xl text-center font-medium">
+            {error}
+          </div>
+        )}
 
-      <div className="space-y-6">
+        {/* Empty */}
         {history.length === 0 ? (
-          <div className="glass-card p-10 text-center">
-            <p className="text-muted italic">No completed jobs found.</p>
+          <div className="bg-white border border-slate-100 rounded-3xl shadow-xl p-10 text-center">
+            <p className="text-slate-500 italic">
+              No completed jobs found.
+            </p>
           </div>
         ) : (
-          history.map((record) => (
-            <div key={record._id} className="glass-card p-6 flex flex-col md:flex-row gap-6">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-xl font-bold">{record.vehicleId?.model}</h3>
-                  <span className="text-xs font-mono text-muted bg-white/5 px-2 py-1 rounded">
-                    {record.vehicleId?.vehicleNumber}
-                  </span>
-                </div>
-                <p className="text-sm text-muted mb-4">
-                  Date: {new Date(record.createdAt).toLocaleDateString()}
-                </p>
-                <div className="bg-black/20 p-4 rounded-lg">
-                  <p className="text-sm font-semibold mb-1">Repair Details:</p>
-                  <p className="text-sm text-muted">{record.repairDetails}</p>
+          <div className="space-y-8">
+            {history.map((record) => (
+              <div
+                key={record._id}
+                className="bg-white border border-slate-100 rounded-3xl shadow-xl p-6 md:p-8"
+              >
+                <div className="grid md:grid-cols-3 gap-8">
+                  {/* Left Section */}
+                  <div className="md:col-span-2">
+                    {/* Vehicle */}
+                    <div className="flex items-center gap-4 mb-5">
+                      <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 text-xl">
+                        🚗
+                      </div>
+
+                      <div>
+                        <h3 className="text-xl font-bold text-slate-800">
+                          {record.vehicleId?.model}
+                        </h3>
+                        <p className="text-sm font-semibold text-blue-500 uppercase tracking-widest">
+                          {record.vehicleId?.vehicleNumber}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Date */}
+                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">
+                      Completed Date :{" "}
+                      {new Date(record.createdAt).toLocaleDateString()}
+                    </p>
+
+                    {/* Details */}
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
+                      <p className="text-xs font-bold text-slate-500 uppercase mb-2">
+                        Repair Details
+                      </p>
+                      <p className="text-sm text-slate-700 leading-relaxed">
+                        {record.repairDetails}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right Section */}
+                  <div className="flex flex-col justify-between gap-6">
+                    {/* Status */}
+                    <div>
+                      <p className="text-xs text-slate-500 uppercase font-bold mb-2">
+                        Status
+                      </p>
+
+                      <span className="inline-block px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-500">
+                        COMPLETED
+                      </span>
+                    </div>
+
+                    {/* Customer */}
+                    <div>
+                      <p className="text-xs text-slate-500 uppercase font-bold mb-2">
+                        Customer
+                      </p>
+
+                      <p className="font-semibold text-slate-800">
+                        {record.vehicleId?.userId?.name || "-"}
+                      </p>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="bg-green-50 text-green-600 rounded-2xl px-4 py-3 text-sm font-semibold text-center">
+                      Successfully Finished
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col justify-between items-end min-w-[150px]">
-                <span className="badge badge-success">Completed</span>
-                <div className="text-right mt-2">
-                  <p className="text-xs text-muted">Customer</p>
-                  <p className="text-sm font-medium">{record.vehicleId?.userId?.name || "-"}</p>
-                </div>
-              </div>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
     </div>
