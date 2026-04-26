@@ -1,1 +1,0 @@
-// sendReminder.js placeholder

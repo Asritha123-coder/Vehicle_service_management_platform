@@ -1,1 +1,0 @@
-// Technician.js placeholder

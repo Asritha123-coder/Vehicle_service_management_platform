@@ -12,6 +12,11 @@ const serviceRecordSchema = new mongoose.Schema(
 			ref: "User",
 			required: true,
 		},
+		appointmentId: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Appointment",
+			required: true,
+		},
 		repairDetails: {
 			type: String,
 			trim: true,

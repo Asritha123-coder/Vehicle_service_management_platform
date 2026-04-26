@@ -40,7 +40,7 @@ const Sidebar = ({ collapsed }) => {
           { name: 'Financials', icon: FileText, path: '/admin/invoices' },
       ],
       service_center: [
-          { name: 'Center Dashboard', icon: LayoutDashboard, path: '/admin' },
+          { name: 'Center Dashboard', icon: LayoutDashboard, path: '/service-center' },
           { name: 'Manage Bookings', icon: Calendar, path: '/admin/appointments' },
           { name: 'Billing', icon: FileText, path: '/admin/invoices' },
       ]
@@ -57,13 +57,13 @@ const Sidebar = ({ collapsed }) => {
         {!collapsed && (
           <div className="flex flex-col overflow-hidden whitespace-nowrap transition-all">
             <span className="text-xl font-black text-slate-900 tracking-tighter uppercase italic">Service<span className="text-blue-600">Hub</span></span>
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em] -mt-1">{role?.replace('_', ' ')}</span>
+            <span className="text-[9px] font-black text-slate-600 uppercase tracking-[0.4em] -mt-1">{role?.replace('_', ' ')}</span>
           </div>
         )}
       </div>
       
       <nav className="flex-1 px-4 mt-6 space-y-1 overflow-hidden">
-        {!collapsed && <p className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 whitespace-nowrap">Operations</p>}
+        {!collapsed && <p className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-4 whitespace-nowrap">Operations</p>}
         {currentMenu.map((item) => (
           <NavLink
             key={item.name}

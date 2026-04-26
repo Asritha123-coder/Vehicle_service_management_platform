@@ -2,6 +2,7 @@ import api from "./api";
 
 // Create a new invoice
 export const createInvoice = async (invoiceData) => {
+  // invoiceData should contain vehicleId, appointmentId, totalAmount, paymentStatus
   const response = await api.post("/invoice/create", invoiceData);
   return response.data;
 };

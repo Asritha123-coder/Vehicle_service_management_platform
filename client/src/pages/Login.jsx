@@ -39,6 +39,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl border border-slate-100">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -57,7 +58,7 @@ const Login = () => {
               <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail size={18} className="text-slate-400 font-bold" />
+                  <Mail size={18} className="text-slate-600 font-bold" />
                 </div>
                 <input
                   type="email"
@@ -73,7 +74,7 @@ const Login = () => {
               <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock size={18} className="text-slate-400 font-bold" />
+                  <Lock size={18} className="text-slate-600 font-bold" />
                 </div>
                 <input
                   type="password"

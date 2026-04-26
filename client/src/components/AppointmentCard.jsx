@@ -1,1 +1,0 @@
-// AppointmentCard.jsx placeholder

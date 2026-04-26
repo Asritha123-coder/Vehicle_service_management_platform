@@ -6,12 +6,13 @@ import { getCustomerDataByVehicle } from "../utils/userUtils.js";
 // Create a new invoice
 export const createInvoice = async (req, res) => {
 	try {
-		const { vehicleId, totalAmount, paymentStatus } = req.body;
-		if (!vehicleId || totalAmount == null) {
-			return res.status(400).json({ message: "vehicleId and totalAmount are required." });
+		const { vehicleId, appointmentId, totalAmount, paymentStatus } = req.body;
+		if (!vehicleId || !appointmentId || totalAmount == null) {
+			return res.status(400).json({ message: "vehicleId, appointmentId and totalAmount are required." });
 		}
 		const invoice = new Invoice({
 			vehicleId,
+			appointmentId,
 			totalAmount,
 			paymentStatus,
 		});
@@ -25,16 +26,17 @@ export const createInvoice = async (req, res) => {
 // Get all invoices for the logged-in user
 export const getInvoices = async (req, res) => {
 	try {
-		const { vehicleId } = req.query;
+		const { vehicleId, appointmentId } = req.query;
 		let filter = {};
 		
 		if (req.user.role === "Customer") {
 			const vehicles = await Vehicle.find({ userId: req.user._id });
 			const vehicleIds = vehicles.map(v => v._id);
 			filter.vehicleId = { $in: vehicleIds };
-		} else if (vehicleId) {
-			filter.vehicleId = vehicleId;
-		}
+		} else {
+            if (vehicleId) filter.vehicleId = vehicleId;
+            if (appointmentId) filter.appointmentId = appointmentId;
+        }
 
 		const invoices = await Invoice.find(filter).populate("vehicleId").sort({ createdAt: -1 });
 		res.status(200).json(invoices);

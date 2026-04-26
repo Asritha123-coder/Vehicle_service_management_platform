@@ -12,8 +12,8 @@
   --card-border: rgba(255, 255, 255, 0.1);
   --glass-bg: rgba(255, 255, 255, 0.05);
 
-  --text-main: #0c4978;
-  --text-muted: #94a3b8;
+  --text-main: #0f172a;
+  --text-muted: #475569;
   --text-inverse: #0f172a;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -31,9 +31,9 @@
   font-size: 16px;
   line-height: 1.6;
   color: var(--text-main);
-  background: #0f172a;
+  background: #f8fafc;
   /* Fallback */
-  background: var(--bg-gradient);
+  background: #f8fafc;
   min-height: 100vh;
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -165,7 +165,7 @@ input,
 select,
 textarea {
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: #f1f5f9;
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 0.75rem 1rem;

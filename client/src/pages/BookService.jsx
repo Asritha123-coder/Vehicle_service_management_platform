@@ -47,7 +47,7 @@ const BookService = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-slate-500 text-lg font-semibold">
+      <div className="min-h-screen flex items-center justify-center text-slate-700 text-lg font-semibold">
         Loading...
       </div>
     );
@@ -58,10 +58,10 @@ const BookService = () => {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-black text-slate-800 mb-3">
+          <h1 className="text-4xl font-black text-slate-900 mb-3">
             Book a Service
           </h1>
-          <p className="text-slate-500 text-base font-medium">
+          <p className="text-slate-700 text-base font-medium">
             Schedule a maintenance or repair for your vehicle
           </p>
         </div>

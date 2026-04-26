@@ -31,7 +31,7 @@ const Navbar = ({ toggleSidebar }) => {
           <Menu size={20} />
         </button>
         <div className="relative max-w-md w-full group hidden sm:block">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-600 transition-colors" />
           <input 
             type="text" 
             placeholder="Search dashboard, services, vehicles..." 
@@ -42,11 +42,11 @@ const Navbar = ({ toggleSidebar }) => {
 
       <div className="flex items-center gap-6">
         <div className="hidden lg:flex items-center gap-2">
-            <button className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all relative">
+            <button className="p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all relative">
                 <Bell size={20} />
                 <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white animate-pulse"></span>
             </button>
-            <button className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all">
+            <button className="p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all">
                 <Settings size={20} />
             </button>
         </div>
@@ -58,7 +58,7 @@ const Navbar = ({ toggleSidebar }) => {
             <p className="text-sm font-black text-slate-900 leading-tight">{user?.name || 'User Profile'}</p>
             <div className="flex items-center justify-end gap-1.5 mt-0.5">
                 <div className={`w-1.5 h-1.5 rounded-full ${getRoleColor(user?.role)}`}></div>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{user?.role?.replace('_', ' ') || 'Guest'}</p>
+                <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">{user?.role?.replace('_', ' ') || 'Guest'}</p>
             </div>
           </div>
           
@@ -74,7 +74,7 @@ const Navbar = ({ toggleSidebar }) => {
           
           <button 
             onClick={handleLogout}
-            className="ml-2 p-2.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-2xl transition-all group"
+            className="ml-2 p-2.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-2xl transition-all group"
             title="Logout"
           >
             <LogOut size={20} className="group-hover:translate-x-0.5 transition-transform" />

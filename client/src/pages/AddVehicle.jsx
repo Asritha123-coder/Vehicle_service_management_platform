@@ -64,7 +64,7 @@ const AddVehicle = () => {
 			<div className="max-w-2xl mx-auto">
 				<button 
 					onClick={() => navigate(-1)} 
-					className="flex items-center gap-2 text-muted hover:text-white transition-colors mb-6 group"
+					className="flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors mb-6 group"
 				>
 					<ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
 					Back to Dashboard
@@ -99,7 +99,7 @@ const AddVehicle = () => {
 									</button>
 								</div>
 							) : (
-								<label className="w-full aspect-video rounded-2xl border-2 border-dashed border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all cursor-pointer flex flex-col items-center justify-center gap-4 group">
+								<label className="w-full aspect-video rounded-2xl border-2 border-dashed border-slate-200 hover:border-primary/50 hover:bg-slate-50 transition-all cursor-pointer flex flex-col items-center justify-center gap-4 group">
 									<div className="p-4 rounded-full bg-white/5 group-hover:bg-primary/20 group-hover:scale-110 transition-all">
 										<Upload size={32} className="text-muted group-hover:text-primary" />
 									</div>
@@ -182,13 +182,13 @@ const AddVehicle = () => {
 
 					<div className="mt-4">
 						{message && (
-							<div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm mb-6 flex items-center gap-3">
+							<div className="p-4 rounded-xl bg-green-50 border border-green-100 text-green-600 text-sm mb-6 flex items-center gap-3">
 								<span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
 								{message}
 							</div>
 						)}
 						{error && (
-							<div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm mb-6">
+							<div className="p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm mb-6">
 								{error}
 							</div>
 						)}

@@ -96,7 +96,7 @@ const HomePage = () => {
               <div className="bg-blue-600 p-2.5 rounded-2xl group-hover:rotate-12 transition-transform duration-500 shadow-lg shadow-blue-200">
                 <Wrench className="w-6 h-6 text-white" />
               </div>
-              <span className="text-2xl font-black text-slate-900 tracking-tighter">Vehicle<span className="text-blue-600">Service</span></span>
+              <span className="text-2xl font-black text-slate-900 tracking-tighter">Service<span className="text-blue-600">Hub</span></span>
             </div>
 
             <div className="hidden md:flex items-center space-x-12 text-gray-600 font-bold text-sm tracking-wide">
@@ -157,7 +157,7 @@ const HomePage = () => {
               <div className="flex items-center gap-12 pt-4">
                 <div className="flex flex-col">
                   <span className="text-3xl font-black text-slate-900 leading-none">5k+</span>
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2">Active Users</span>
+                  <span className="text-xs font-bold text-slate-600 uppercase tracking-widest mt-2">Active Users</span>
                 </div>
                 <div className="w-[1px] h-12 bg-gray-200"></div>
                 <div className="flex items-center gap-4">
@@ -170,7 +170,7 @@ const HomePage = () => {
                     <div className="flex text-yellow-500">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-current" />)}
                     </div>
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">4.9/5 Rating</span>
+                    <span className="text-xs font-bold text-slate-600 uppercase tracking-widest mt-1">4.9/5 Rating</span>
                   </div>
                 </div>
               </div>
@@ -190,7 +190,7 @@ const HomePage = () => {
                   </div>
                   <div>
                     <p className="text-xl font-black text-slate-900">200+</p>
-                    <p className="text-xs font-bold text-gray-400 uppercase">Shops Live</p>
+                    <p className="text-xs font-bold text-slate-600 uppercase">Shops Live</p>
                   </div>
                 </div>
               </div>
@@ -246,7 +246,7 @@ const HomePage = () => {
                   STEP {s.id}
                 </div>
                 <h4 className="text-xl font-black text-slate-900 mb-2 uppercase tracking-tighter">{s.title}</h4>
-                <p className="text-sm font-bold text-gray-400 leading-tight px-2">{s.desc}</p>
+                <p className="text-sm font-bold text-slate-600 leading-tight px-2">{s.desc}</p>
               </FadeUpSection>
             ))}
           </div>
@@ -264,7 +264,7 @@ const HomePage = () => {
                 </div>
                 <span className="text-2xl font-black text-slate-900">VehicleService</span>
               </div>
-              <p className="text-gray-400 font-medium leading-relaxed">
+              <p className="text-slate-600 font-medium leading-relaxed">
                 Elevating the ServiceHub experience through precision technology and user-centric design.
               </p>
             </div>
@@ -272,14 +272,14 @@ const HomePage = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-16 font-black text-sm uppercase tracking-[0.1em]">
               <div className="space-y-6">
                 <p className="text-slate-900">Platform</p>
-                <div className="flex flex-col gap-4 text-gray-400">
+                <div className="flex flex-col gap-4 text-slate-600">
                   <a href="#services" className="hover:text-blue-600 transition-colors">Services</a>
                   <a href="#how-it-works" className="hover:text-blue-600 transition-colors">Workflow</a>
                 </div>
               </div>
               <div className="space-y-6">
                 <p className="text-slate-900">Support</p>
-                <div className="flex flex-col gap-4 text-gray-400">
+                <div className="flex flex-col gap-4 text-slate-600">
                   <Link to="/login" className="hover:text-blue-600 transition-colors">Login</Link>
                   <Link to="/register" className="hover:text-blue-600 transition-colors">Register</Link>
                 </div>
@@ -288,10 +288,10 @@ const HomePage = () => {
           </div>
 
           <div className="pt-12 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-8">
-            <p className="text-gray-400 font-bold text-[10px] tracking-[0.3em] uppercase">
+            <p className="text-slate-600 font-bold text-[10px] tracking-[0.3em] uppercase">
               &copy; {new Date().getFullYear()} VehicleService Platform | All Rights Reserved
             </p>
-            <div className="flex gap-10 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+            <div className="flex gap-10 text-[10px] font-black text-slate-600 uppercase tracking-widest">
               <a href="#" className="hover:text-slate-900 transition-colors">Privacy</a>
               <a href="#" className="hover:text-slate-900 transition-colors">Terms</a>
               <a href="#" className="hover:text-slate-900 transition-colors">Status</a>

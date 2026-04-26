@@ -9,23 +9,21 @@ import { getCustomerDataByVehicle } from "../utils/userUtils.js";
 // Add a new service record
 export const addServiceRecord = async (req, res) => {
 	try {
-		const { vehicleId, technicianId, repairDetails, serviceStatus } = req.body;
-		if (!vehicleId || !technicianId) {
-			return res.status(400).json({ message: "vehicleId and technicianId are required." });
+		const { vehicleId, technicianId, appointmentId, repairDetails, serviceStatus } = req.body;
+		if (!vehicleId || !technicianId || !appointmentId) {
+			return res.status(400).json({ message: "vehicleId, technicianId and appointmentId are required." });
 		}
 		const record = new ServiceRecord({
 			vehicleId,
 			technicianId,
+			appointmentId,
 			repairDetails,
 			serviceStatus,
 		});
 		await record.save();
 
 		// Update matching appointment status
-		await Appointment.findOneAndUpdate(
-			{ vehicleId, technicianId, status: { $ne: "COMPLETED" } },
-			{ status: serviceStatus || "IN_PROGRESS" }
-		);
+		await Appointment.findByIdAndUpdate(appointmentId, { status: serviceStatus || "IN_PROGRESS" });
 
 		res.status(201).json({ message: "Service record added and appointment status updated.", record });
 
@@ -99,14 +97,11 @@ export const updateServiceStatus = async (req, res) => {
 		};
 		// Remove undefined fields
 		Object.keys(apptUpdate).forEach(key => apptUpdate[key] === undefined && delete apptUpdate[key]);
-		await Appointment.findOneAndUpdate(
-			{ vehicleId: record.vehicleId, technicianId: record.technicianId },
-			apptUpdate
-		);
+		await Appointment.findByIdAndUpdate(record.appointmentId, apptUpdate);
 
 
 
-		res.status(200).json({ message: "Service status, appointment, and invoice updated.", record });
+		res.status(200).json({ message: "Service status and appointment updated.", record });
 
         // --- ASYNC EMAIL NOTIFICATIONS ---
         (async () => {

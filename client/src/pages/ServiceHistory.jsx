@@ -30,7 +30,7 @@ const ServiceHistory = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-slate-500 text-lg font-semibold">
+      <div className="min-h-screen flex items-center justify-center text-slate-700 text-lg font-semibold">
         Loading...
       </div>
     );
@@ -41,10 +41,10 @@ const ServiceHistory = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-black text-slate-800 mb-2">
+          <h1 className="text-4xl font-black text-slate-900 mb-2">
             Service History
           </h1>
-          <p className="text-slate-500">
+          <p className="text-slate-700">
             Track all maintenance and repairs done for your vehicles
           </p>
         </div>
@@ -59,7 +59,7 @@ const ServiceHistory = () => {
         {/* Empty State */}
         {history.length === 0 ? (
           <div className="bg-white border border-slate-100 rounded-3xl shadow-xl p-10 text-center">
-            <p className="text-slate-500 italic">
+            <p className="text-slate-700 italic">
               No service records found. Book your first service today!
             </p>
           </div>
@@ -90,12 +90,12 @@ const ServiceHistory = () => {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <span className="text-xl text-slate-400">🚗</span>
+                            <span className="text-xl text-slate-600">🚗</span>
                           )}
                         </div>
 
                         <div>
-                          <h3 className="text-xl font-bold text-slate-800">
+                          <h3 className="text-xl font-bold text-slate-900">
                             {record.vehicleId?.model}
                           </h3>
                           <p className="text-sm font-semibold text-blue-500 tracking-widest uppercase">
@@ -105,14 +105,14 @@ const ServiceHistory = () => {
                       </div>
 
                       {/* Date */}
-                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">
+                      <p className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4">
                         Service Date :{" "}
                         {new Date(record.createdAt).toLocaleDateString()}
                       </p>
 
                       {/* Details */}
                       <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
-                        <p className="text-xs font-bold text-slate-500 uppercase mb-2">
+                        <p className="text-xs font-bold text-slate-700 uppercase mb-2">
                           Repair Details
                         </p>
                         <p className="text-slate-700 leading-relaxed text-sm">
@@ -125,7 +125,7 @@ const ServiceHistory = () => {
                     <div className="flex flex-col justify-between gap-6">
                       {/* Status */}
                       <div>
-                        <p className="text-xs text-slate-500 uppercase font-bold mb-2">
+                        <p className="text-xs text-slate-700 uppercase font-bold mb-2">
                           Service Status
                         </p>
 
@@ -144,10 +144,10 @@ const ServiceHistory = () => {
 
                       {/* Technician */}
                       <div>
-                        <p className="text-xs text-slate-500 uppercase font-bold mb-2">
+                        <p className="text-xs text-slate-700 uppercase font-bold mb-2">
                           Assigned Technician
                         </p>
-                        <p className="font-semibold text-slate-800">
+                        <p className="font-semibold text-slate-900">
                           {record.technicianId?.name || "Team Member"}
                         </p>
                       </div>
@@ -183,7 +183,7 @@ const ServiceHistory = () => {
                             )}
                           </>
                         ) : (
-                          <p className="text-sm text-slate-400 italic">
+                          <p className="text-sm text-slate-600 italic">
                             Processing Invoice...
                           </p>
                         )}

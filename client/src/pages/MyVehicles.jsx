@@ -132,7 +132,7 @@ const MyVehicles = () => {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Car size={70} className="text-slate-300" />
+                    <Car size={70} className="text-slate-500" />
                   </div>
                 )}
 
@@ -156,7 +156,7 @@ const MyVehicles = () => {
 
                   <button
                     onClick={() => handleDelete(v._id)}
-                    className="text-slate-400 hover:text-red-500 transition-all"
+                    className="text-slate-600 hover:text-red-500 transition-all"
                   >
                     <Trash2 size={20} />
                   </button>

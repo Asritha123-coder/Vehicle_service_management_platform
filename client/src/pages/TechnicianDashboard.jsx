@@ -54,6 +54,7 @@ const TechnicianDashboard = ({ filter }) => {
         const newRecord = await addServiceRecord({
           vehicleId: appointment.vehicleId?._id || appointment.vehicleId,
           technicianId: appointment.technicianId?._id || appointment.technicianId,
+          appointmentId: appointmentId,
           repairDetails,
           replacedParts,
           serviceStatus: "IN_PROGRESS"
@@ -83,6 +84,7 @@ const TechnicianDashboard = ({ filter }) => {
         const newRecord = await addServiceRecord({
           vehicleId: appointment.vehicleId?._id || appointment.vehicleId,
           technicianId: appointment.technicianId?._id || appointment.technicianId,
+          appointmentId: appointmentId,
           repairDetails,
           replacedParts,
           serviceStatus: status
@@ -117,7 +119,7 @@ const TechnicianDashboard = ({ filter }) => {
               {filter === 'IN_PROGRESS' ? 'Active ' : 'Assigned '}
               <span className="text-blue-600">ServiceHub</span>
             </h1>
-            <p className="text-slate-500 font-bold text-xs uppercase tracking-[0.3em] mt-2">
+            <p className="text-slate-700 font-bold text-xs uppercase tracking-[0.3em] mt-2">
               Technician Performance Protocol
             </p>
           </div>
@@ -136,19 +138,19 @@ const TechnicianDashboard = ({ filter }) => {
       {/* Metric Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
         <div className="bg-slate-50 border border-slate-200 p-6 rounded-3xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Queue Total</p>
+          <p className="text-[10px] font-black text-slate-700 uppercase tracking-widest mb-1">Queue Total</p>
           <p className="text-2xl font-black text-blue-600 leading-none">{tasks.length}</p>
         </div>
         <div className="bg-slate-50 border border-slate-200 p-6 rounded-3xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Efficiency</p>
+          <p className="text-[10px] font-black text-slate-700 uppercase tracking-widest mb-1">Efficiency</p>
           <p className="text-2xl font-black text-emerald-600 leading-none">94%</p>
         </div>
         <div className="bg-slate-50 border border-slate-200 p-6 rounded-3xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Uptime</p>
+          <p className="text-[10px] font-black text-slate-700 uppercase tracking-widest mb-1">Uptime</p>
           <p className="text-2xl font-black text-blue-600 leading-none">100%</p>
         </div>
         <div className="bg-slate-50 border border-slate-200 p-6 rounded-3xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Current Shift</p>
+          <p className="text-[10px] font-black text-slate-700 uppercase tracking-widest mb-1">Current Shift</p>
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse"></div>
             <p className="text-xs font-black text-blue-600 uppercase tracking-tighter">Active</p>
@@ -169,9 +171,9 @@ const TechnicianDashboard = ({ filter }) => {
          </div>
         ) : tasks.length === 0 ? (
          <div className="bg-slate-50 border border-dashed border-slate-200 p-20 text-center rounded-[3rem]">
-           <Activity className="mx-auto text-slate-300 mb-6" size={60} strokeWidth={1} />
-           <p className="font-black text-slate-400 uppercase tracking-[0.3em] text-sm">No Active Assignments</p>
-           <p className="text-slate-400 text-xs font-bold mt-2">Stand by for upcoming service requests.</p>
+           <Activity className="mx-auto text-slate-500 mb-6" size={60} strokeWidth={1} />
+           <p className="font-black text-slate-600 uppercase tracking-[0.3em] text-sm">No Active Assignments</p>
+           <p className="text-slate-600 text-xs font-bold mt-2">Stand by for upcoming service requests.</p>
          </div>
         ) : (
          <div className="grid grid-cols-1 gap-6">

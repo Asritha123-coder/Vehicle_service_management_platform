@@ -29,7 +29,7 @@ const ServiceSidebar = ({ collapsed }) => {
         </div>
         {!collapsed && (
           <div className="flex flex-col overflow-hidden whitespace-nowrap transition-all">
-            <span className="text-xl font-black text-slate-900 tracking-tighter">Servuce</span>
+            <span className="text-xl font-black text-slate-900 tracking-tighter">Service</span>
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 -mt-1">Technician</span>
           </div>
         )}

@@ -61,7 +61,7 @@ const CustomerDashboard = () => {
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-400 font-bold text-sm uppercase tracking-widest">Warming up your garage...</p>
+          <p className="text-slate-600 font-bold text-sm uppercase tracking-widest">Warming up your garage...</p>
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ const CustomerDashboard = () => {
           <h1 className="text-4xl font-black text-slate-900 tracking-tight">
             Hello, <span className="text-blue-600">{user?.name?.split(' ')[0] || 'Member'}</span>!
           </h1>
-          <p className="text-slate-500 font-medium mt-1">Here's a quick look at your vehicle status.</p>
+          <p className="text-slate-600 font-medium mt-1">Here's a quick look at your vehicle status.</p>
         </div>
         <button 
            onClick={() => navigate('/customer/appointments')}
@@ -103,7 +103,7 @@ const CustomerDashboard = () => {
                 <Car size={24} />
             </div>
             <h3 className="text-4xl font-black text-slate-900 mb-1 tracking-tighter">{stats.vehicles}</h3>
-            <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Registered Vehicles</p>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-[0.2em]">Registered Vehicles</p>
           </div>
         </div>
 
@@ -116,7 +116,7 @@ const CustomerDashboard = () => {
                 <Calendar size={24} />
             </div>
             <h3 className="text-4xl font-black text-slate-900 mb-1 tracking-tighter">{stats.appointments}</h3>
-            <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Scheduled Services</p>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-[0.2em]">Scheduled Services</p>
           </div>
         </div>
 
@@ -129,7 +129,7 @@ const CustomerDashboard = () => {
                 <CreditCard size={24} />
             </div>
             <h3 className="text-4xl font-black text-slate-900 mb-1 tracking-tighter">{stats.pendingInvoices}</h3>
-            <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Pending Payments</p>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-[0.2em]">Pending Payments</p>
           </div>
         </div>
       </div>
@@ -165,7 +165,7 @@ const CustomerDashboard = () => {
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 {vehicles.length === 0 ? (
-                    <div className="col-span-2 border-2 border-dashed border-slate-200 rounded-[2rem] p-12 text-center text-slate-400">
+                    <div className="col-span-2 border-2 border-dashed border-slate-200 rounded-[2rem] p-12 text-center text-slate-600">
                         <p className="font-bold text-sm tracking-widest uppercase mb-4">No vehicles found</p>
                         <Link to="/customer/vehicles/add" className="text-blue-600 font-black text-xs uppercase hover:underline">Register your first car</Link>
                     </div>
@@ -173,13 +173,13 @@ const CustomerDashboard = () => {
                     vehicles.slice(0, 2).map((vehicle, i) => (
                         <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-100 flex items-center gap-5 group hover:border-blue-200 transition-all">
                             <div className="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center p-2 group-hover:bg-blue-50 transition-colors">
-                                <Car size={32} className="text-slate-400 group-hover:text-blue-600" />
+                                <Car size={32} className="text-slate-600 group-hover:text-blue-600" />
                             </div>
                             <div className="flex-1">
                                 <p className="text-lg font-black text-slate-900 leading-tight">{vehicle.model}</p>
-                                <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.1em] mt-1">{vehicle.licensePlate}</p>
+                                <p className="text-xs font-bold text-slate-600 uppercase tracking-[0.1em] mt-1">{vehicle.licensePlate}</p>
                             </div>
-                            <Link to={`/customer/vehicles`} className="w-10 h-10 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                            <Link to={`/customer/vehicles`} className="w-10 h-10 bg-slate-50 text-slate-600 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
                                 <ArrowUpRight size={18} />
                             </Link>
                         </div>
@@ -201,7 +201,7 @@ const CustomerDashboard = () => {
                  <div className="relative z-10">
                     <div className="bg-blue-600 text-[10px] font-black px-3 py-1 rounded-full w-fit mb-6 tracking-widest uppercase">Upcoming</div>
                     <p className="text-3xl font-black text-white leading-tight mb-2 tracking-tighter">Oil Change & Fluid Check</p>
-                    <p className="text-slate-400 font-bold text-sm mb-8 tracking-wide italic">In 4 days - Jan 22, 2024</p>
+                    <p className="text-slate-600 font-bold text-sm mb-8 tracking-wide italic">In 4 days - Jan 22, 2024</p>
                     
                     <button className="w-full bg-white text-slate-900 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-blue-50 active:scale-95 transition-all">
                        Track Status
@@ -218,7 +218,7 @@ const CustomerDashboard = () => {
                         <div className="w-2 h-2 rounded-full bg-blue-600 mt-2 flex-shrink-0 animate-pulse"></div>
                         <div>
                             <p className="text-sm font-black text-slate-800 tracking-tight group-hover:text-blue-600 transition-colors">Service completed for Ford Raptor</p>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">2 hours ago</p>
+                            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mt-1">2 hours ago</p>
                         </div>
                     </div>
                  ))}

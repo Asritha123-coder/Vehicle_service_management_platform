@@ -87,7 +87,7 @@ const TrackService = () => {
                         />
                       ) : (
                         <svg
-                          className="w-10 h-10 text-slate-400"
+                          className="w-10 h-10 text-slate-600"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -115,7 +115,7 @@ const TrackService = () => {
 
                   {/* Status */}
                   <div className="text-left lg:text-right">
-                    <p className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-2">
+                    <p className="text-xs uppercase tracking-widest text-slate-600 font-bold mb-2">
                       Current Status
                     </p>
 
@@ -159,7 +159,7 @@ const TrackService = () => {
                     className={
                       app.status === "PENDING"
                         ? "text-blue-500"
-                        : "text-slate-400"
+                        : "text-slate-600"
                     }
                   >
                     Pending
@@ -169,7 +169,7 @@ const TrackService = () => {
                     className={
                       app.status === "ASSIGNED"
                         ? "text-blue-500"
-                        : "text-slate-400"
+                        : "text-slate-600"
                     }
                   >
                     Assigned
@@ -179,7 +179,7 @@ const TrackService = () => {
                     className={
                       app.status === "IN_PROGRESS"
                         ? "text-blue-500"
-                        : "text-slate-400"
+                        : "text-slate-600"
                     }
                   >
                     Ongoing
@@ -189,7 +189,7 @@ const TrackService = () => {
                     className={
                       app.status === "COMPLETED"
                         ? "text-blue-500"
-                        : "text-slate-400"
+                        : "text-slate-600"
                     }
                   >
                     Ready

@@ -1,1 +1,0 @@
-// technicianRoutes.js placeholder

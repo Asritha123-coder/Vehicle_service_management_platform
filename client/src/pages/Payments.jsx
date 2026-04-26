@@ -35,12 +35,12 @@ const Payments = () => {
 				<p className="text-muted">Manage your service bills and payment history.</p>
 			</header>
 
-			{error && <div className="glass-card p-4 mb-6 text-red-400">{error}</div>}
+			{error && <div className="bg-red-50 border border-red-100 p-4 mb-6 text-red-600 rounded-xl">{error}</div>}
 	// Removed successMsg display (variable not defined)
 
 			<div className="glass-card overflow-hidden">
 				<table className="w-full text-left">
-					<thead className="bg-white/5 border-b border-white/10 text-xs uppercase text-muted font-bold">
+					<thead className="bg-slate-50 border-b border-slate-100 text-xs uppercase text-slate-600 font-bold">
 						<tr>
 							<th className="px-6 py-4">Vehicle</th>
 							<th className="px-6 py-4">Date</th>
@@ -49,14 +49,14 @@ const Payments = () => {
 							<th className="px-6 py-4 text-right sticky right-0 bg-inherit">Action</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-white/5">
+					<tbody className="divide-y divide-slate-100">
 						{invoices.length === 0 ? (
 							<tr>
 								<td colSpan="5" className="px-6 py-10 text-center text-muted italic">No invoices found.</td>
 							</tr>
 						) : (
 							invoices.map((invoice) => (
-								<tr key={invoice._id} className="hover:bg-white/5 transition-colors">
+								<tr key={invoice._id} className="hover:bg-slate-50 transition-colors">
 									<td className="px-6 py-4">
 										<div className="font-medium">{invoice.vehicleId?.model}</div>
 										<div className="text-xs text-muted">{invoice.vehicleId?.vehicleNumber}</div>
