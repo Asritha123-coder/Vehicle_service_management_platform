@@ -40,3 +40,31 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: "Server error.", error: error.message });
   }
 };
+
+export const createUser = async (req, res) => {
+  try {
+    const { name, email, role, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "All fields required" });
+    }
+
+    // ⚠️ adjust based on your User model
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const newUser = await User.create({
+      name,
+      email,
+      role,
+      password // later hash it (important)
+    });
+
+    res.status(201).json(newUser);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
