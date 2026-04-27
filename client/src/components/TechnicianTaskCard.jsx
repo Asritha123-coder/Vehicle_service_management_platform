@@ -53,8 +53,12 @@ const TechnicianTaskCard = ({ appointment, onUpdate, onStatusChange }) => {
               <Car size={32} className="text-slate-600 group-hover:text-blue-600" />
             </div>
             <div>
-              <p className="text-2xl font-black text-slate-900 leading-tight tracking-tight">{appointment.vehicleId?.model || "Standard Vehicle"}</p>
-              <p className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] mt-1">{appointment.vehicleId?.vehicleNumber || "NO PLATE"}</p>
+              <p className="text-2xl font-black text-slate-900 leading-tight tracking-tight">
+                {appointment.vehicleModel || appointment.vehicleId?.model || "Standard Vehicle"}
+              </p>
+              <p className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] mt-1">
+                {appointment.vehicleNumber || appointment.vehicleId?.vehicleNumber || "NO PLATE"}
+              </p>
             </div>
           </div>
 

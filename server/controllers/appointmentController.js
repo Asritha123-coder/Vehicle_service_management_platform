@@ -1,13 +1,29 @@
+import Appointment from "../models/Appointment.js";
+import Vehicle from "../models/Vehicle.js";
+import User from "../models/User.js";
+import { sendEmail } from "../utils/emailService.js";
+import { getCustomerDataByVehicle } from "../utils/userUtils.js";
+
 // Get all appointments assigned to the logged-in technician
 export const getTechnicianAppointments = async (req, res) => {
 	try {
 		const technicianId = req.user._id;
-		const appointments = await Appointment.find({ technicianId, status: { $ne: "COMPLETED" } });
-		res.status(200).json(appointments);
+		const appointments = await Appointment.find({ technicianId, status: { $ne: "COMPLETED" } })
+			.populate("vehicleId")
+			.sort({ appointmentDate: 1 })
+			.lean();
+
+		const mappedAppointments = appointments.map(appt => ({
+			...appt,
+			vehicleModel: appt.vehicleId?.model || "Standard Vehicle",
+			vehicleNumber: appt.vehicleId?.vehicleNumber || "NO PLATE"
+		}));
+		res.status(200).json(mappedAppointments);
 	} catch (error) {
 		res.status(500).json({ message: "Server error.", error: error.message });
 	}
 };
+
 // Assign a technician to an appointment (admin/staff only)
 export const assignTechnician = async (req, res) => {
 	try {
@@ -20,7 +36,8 @@ export const assignTechnician = async (req, res) => {
 			id,
 			{ technicianId, status: "ASSIGNED" },
 			{ new: true }
-		);
+		).populate("vehicleId");
+
 		if (!appointment) {
 			return res.status(404).json({ message: "Appointment not found." });
 		}
@@ -29,7 +46,7 @@ export const assignTechnician = async (req, res) => {
         // Send Email Notification
         (async () => {
             try {
-                const customer = await getCustomerDataByVehicle(appointment.vehicleId);
+                const customer = await getCustomerDataByVehicle(appointment.vehicleId?._id || appointment.vehicleId);
                 if (customer) {
                     await sendEmail(
 						customer.email,
@@ -45,13 +62,6 @@ export const assignTechnician = async (req, res) => {
 		res.status(500).json({ message: "Server error.", error: error.message });
 	}
 };
-import Appointment from "../models/Appointment.js";
-import Vehicle from "../models/Vehicle.js";
-import User from "../models/User.js";
-import { sendEmail } from "../utils/emailService.js";
-import { getCustomerDataByVehicle } from "../utils/userUtils.js";
-
-// Helper removed as we use userUtils.js
 
 // Book a new appointment
 export const bookAppointment = async (req, res) => { 
@@ -106,7 +116,6 @@ export const getUserAppointments = async (req, res) => {
 	}
 };
 
-
 // Update appointment status
 export const updateAppointmentStatus = async (req, res) => {
 	try {
@@ -116,7 +125,8 @@ export const updateAppointmentStatus = async (req, res) => {
 			id,
 			{ status },
 			{ new: true }
-		);
+		).populate("vehicleId");
+
 		if (!appointment) {
 			return res.status(404).json({ message: "Appointment not found." });
 		}
@@ -125,7 +135,7 @@ export const updateAppointmentStatus = async (req, res) => {
         // Send Email Notification
         (async () => {
             try {
-                const customer = await getCustomerDataByVehicle(appointment.vehicleId);
+                const customer = await getCustomerDataByVehicle(appointment.vehicleId?._id || appointment.vehicleId);
 				if (customer) {
 					const subject = status === "COMPLETED" ? "Service Completed - ServiceHub" : "Service Update - ServiceHub";
 					const message = status === "COMPLETED"

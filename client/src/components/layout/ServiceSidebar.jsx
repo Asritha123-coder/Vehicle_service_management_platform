@@ -18,7 +18,6 @@ const ServiceSidebar = ({ collapsed }) => {
     { name: 'Assigned Tasks', icon: ClipboardList, path: '/technician' },
     { name: 'In Progress', icon: Clock, path: '/technician/active' },
     { name: 'Completed Tasks', icon: CheckCircle2, path: '/technician/history' },
-    { name: 'My Profile', icon: UserCircle, path: '/technician/profile' },
   ];
 
   return (
@@ -60,17 +59,7 @@ const ServiceSidebar = ({ collapsed }) => {
       </nav>
 
       <div className="p-6 mt-auto border-t border-slate-50 space-y-2">
-        {!collapsed && (
-          <div className="px-4 mb-4">
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 overflow-hidden">
-               <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 whitespace-nowrap">Status</p>
-               <div className="flex items-center gap-2">
-                 <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse flex-shrink-0"></div>
-                 <p className="text-slate-900 font-bold text-xs uppercase tracking-tighter whitespace-nowrap">On Duty</p>
-               </div>
-            </div>
-          </div>
-        )}
+
         <button 
           onClick={logout}
           className={`flex items-center gap-3 text-rose-500 hover:text-rose-600 w-full px-4 py-3 rounded-xl hover:bg-rose-50 transition-all font-bold text-sm tracking-tight ${collapsed ? 'justify-center' : ''}`}

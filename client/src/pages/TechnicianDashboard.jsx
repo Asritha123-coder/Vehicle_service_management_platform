@@ -25,7 +25,6 @@ const TechnicianDashboard = ({ filter }) => {
           getTechnicianAppointments(),
           getServiceHistory()
         ]);
-        
         let filteredAppointments = appointments;
         if (filter) {
            filteredAppointments = appointments.filter(a => a.status === filter);
@@ -125,15 +124,6 @@ const TechnicianDashboard = ({ filter }) => {
           </div>
         </div>
       </header>
-
-      <div className="flex justify-end mb-8">
-        <a
-          href="/technician/profile"
-          className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-500 via-indigo-500 to-pink-500 text-white font-black shadow-lg hover:from-blue-600 hover:to-pink-600 transition-all"
-        >
-          <Settings size={18} /> My Profile
-        </a>
-      </div>
 
       {/* Metric Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">

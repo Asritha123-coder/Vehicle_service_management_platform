@@ -1,6 +1,9 @@
 import express from "express";
 import Appointment from "../models/Appointment.js";
 import User from "../models/User.js";
+import Vehicle from "../models/Vehicle.js"; // Explicitly import Vehicle
+import ServiceRecord from "../models/ServiceRecord.js";
+import Invoice from "../models/Invoice.js";
 
 import {
   bookAppointment,
@@ -15,11 +18,7 @@ import roleMiddleware from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-
 // 🔥 GET ALL APPOINTMENTS (Admin / Service Center)
-import ServiceRecord from "../models/ServiceRecord.js";
-import Invoice from "../models/Invoice.js";
-
 router.get(
   "/all",
   authMiddleware,
@@ -29,30 +28,36 @@ router.get(
       const appointments = await Appointment.find()
         .populate("vehicleId")
         .populate("technicianId")
-        .sort({ appointmentDate: -1 });
+        .sort({ appointmentDate: -1 })
+        .lean(); // Use lean() for easier mapping
 
       const result = await Promise.all(
         appointments.map(async (appt) => {
-          let customerName = "";
-          if (appt.vehicleId && appt.vehicleId.userId) {
-            const user = await User.findById(appt.vehicleId.userId);
-            customerName = user ? user.name : "";
+          let customerName = "Unknown";
+          // If vehicleId is populated, it should be an object
+          const vehicle = appt.vehicleId;
+          
+          if (vehicle && vehicle.userId) {
+            const user = await User.findById(vehicle.userId).lean();
+            customerName = user ? user.name : "Unknown Member";
           }
 
-          // Get latest service record for this appointment (by vehicle and technician)
+          // Get latest service record
           const serviceRecord = await ServiceRecord.findOne({
-            vehicleId: appt.vehicleId?._id,
+            vehicleId: vehicle?._id || vehicle,
             technicianId: appt.technicianId?._id || appt.technicianId
-          }).sort({ createdAt: -1 });
+          }).sort({ createdAt: -1 }).lean();
 
-          // Get latest invoice for this vehicle
+          // Get latest invoice
           const invoice = await Invoice.findOne({
-            vehicleId: appt.vehicleId?._id
-          }).sort({ createdAt: -1 });
+            vehicleId: vehicle?._id || vehicle
+          }).sort({ createdAt: -1 }).lean();
 
           return {
-            ...appt.toObject(),
+            ...appt,
             customerName,
+            vehicleModel: vehicle?.model || "Standard Vehicle",
+            vehicleNumber: vehicle?.vehicleNumber || "NO PLATE",
             repairDetails: serviceRecord?.repairDetails || "",
             serviceStatus: serviceRecord?.serviceStatus || appt.status,
             invoiceStatus: invoice?.paymentStatus || "-",

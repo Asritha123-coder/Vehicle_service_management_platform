@@ -190,8 +190,8 @@ const ServiceCenterDashboard = () => {
                             <Wrench size={18} />
                           </div>
                           <div>
-                            <p className="text-sm font-black text-slate-900 tracking-tight">{appt.vehicleId?.model || "Standard Car"}</p>
-                            <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest leading-none mt-1">{appt.vehicleId?.vehicleNumber || "No Plate"}</p>
+                            <p className="text-sm font-black text-slate-900 tracking-tight">{appt.vehicleModel || appt.vehicleId?.model || "Standard Car"}</p>
+                            <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest leading-none mt-1">{appt.vehicleNumber || appt.vehicleId?.vehicleNumber || "No Plate"}</p>
                           </div>
                         </div>
                       </td>
@@ -239,13 +239,24 @@ const ServiceCenterDashboard = () => {
                               className="px-6 py-2 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 transition-all shadow-lg shadow-indigo-100"
                               onClick={async () => {
                                 try {
+                                  // Service price mapping
+                                  const prices = {
+                                    "General Maintenance": 1500,
+                                    "Oil Change": 800,
+                                    "Brake Repair": 2500,
+                                    "Engine Tuning": 3500,
+                                    "Tire Replacement": 5000,
+                                    "Other": 1000
+                                  };
+                                  const amount = prices[appt.serviceType] || 500;
+
                                   await createInvoice({
                                     vehicleId: appt.vehicleId?._id,
                                     appointmentId: appt._id,
-                                    totalAmount: 500,
+                                    totalAmount: amount,
                                     paymentStatus: "PENDING"
                                   });
-                                  setSuccess("Digital invoice emitted.");
+                                  setSuccess(`Digital invoice emitted for $${amount}.`);
                                   const invoiceRes = await getUserInvoices();
                                   setInvoices(invoiceRes);
                                 } catch (err) { setError("Invoice emission failed."); }
