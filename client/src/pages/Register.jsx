@@ -73,6 +73,7 @@ const Register = () => {
                     name="name"
                     type="text"
                     required
+                     style={{ paddingLeft: '45px' }}
                     className="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-200 placeholder-slate-400 text-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm"
                     placeholder="John Doe"
                     value={name}
@@ -91,6 +92,7 @@ const Register = () => {
                     name="email"
                     type="email"
                     required
+                     style={{ paddingLeft: '45px' }}
                     className="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-200 placeholder-slate-400 text-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm"
                     placeholder="john@example.com"
                     value={email}
@@ -109,6 +111,7 @@ const Register = () => {
                     name="password"
                     type="password"
                     required
+                     style={{ paddingLeft: '45px' }}
                     className="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-200 placeholder-slate-400 text-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm"
                     placeholder="••••••••"
                     value={password}

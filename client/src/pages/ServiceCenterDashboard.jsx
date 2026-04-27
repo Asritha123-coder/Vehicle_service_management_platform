@@ -115,9 +115,9 @@ const ServiceCenterDashboard = () => {
       {/* High Performance Table Container */}
       <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
         <div className="p-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
-          <div className="relative group max-w-xs w-full">
+          <div className="relative group max-w-xs w-  full">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-600 transition-colors" />
-            <input type="text" placeholder="Filter bookings..." className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/5 transition-all" />
+            <input  style={{ paddingLeft: '45px' }}type="text" placeholder="Filter bookings..." className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/5 transition-all" />
           </div>
           <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all">
             <Filter size={14} /> View Preferences

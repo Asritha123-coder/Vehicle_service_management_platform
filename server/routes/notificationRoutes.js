@@ -1,1 +1,0 @@
-// notificationRoutes.js placeholder

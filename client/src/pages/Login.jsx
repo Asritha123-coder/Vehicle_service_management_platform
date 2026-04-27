@@ -53,7 +53,7 @@ const Login = () => {
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm space-y-4">
+         
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
               <div className="relative">
@@ -62,7 +62,8 @@ const Login = () => {
                 </div>
                 <input
                   type="email"
-                  required
+                  required 
+                  style={{ paddingLeft: '45px' }}
                   className="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-200 placeholder-slate-400 text-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm"
                   placeholder="name@example.com"
                   value={email}
@@ -79,6 +80,7 @@ const Login = () => {
                 <input
                   type="password"
                   required
+                   style={{ paddingLeft: '45px' }}
                   className="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-200 placeholder-slate-400 text-slate-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm"
                   placeholder="••••••••"
                   value={password}
@@ -86,7 +88,7 @@ const Login = () => {
                 />
               </div>
             </div>
-          </div>
+        
 
           {error && (
             <div className="p-3 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3 text-red-600 text-sm">

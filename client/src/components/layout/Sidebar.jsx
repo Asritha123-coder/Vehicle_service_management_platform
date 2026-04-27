@@ -86,10 +86,7 @@ const Sidebar = ({ collapsed }) => {
       </nav>
 
       <div className="p-6 mt-auto border-t border-slate-50 space-y-2">
-        <button className={`flex items-center gap-3 text-slate-500 hover:text-slate-900 w-full px-4 py-3 rounded-xl hover:bg-slate-50 transition-all group ${collapsed ? 'justify-center' : ''}`}>
-          <Settings size={20} className="group-hover:rotate-90 transition-transform flex-shrink-0" />
-          {!collapsed && <span className="font-bold text-sm tracking-tight whitespace-nowrap">System Settings</span>}
-        </button>
+  
         <button 
           onClick={logout}
           className={`flex items-center gap-3 text-rose-500 hover:text-rose-600 w-full px-4 py-3 rounded-xl hover:bg-rose-50 transition-all font-bold text-sm tracking-tight ${collapsed ? 'justify-center' : ''}`}

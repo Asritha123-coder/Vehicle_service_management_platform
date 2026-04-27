@@ -34,6 +34,7 @@ const Navbar = ({ toggleSidebar }) => {
           <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-600 transition-colors" />
           <input 
             type="text" 
+            style={{ paddingLeft: '45px' }}
             placeholder="Search dashboard, services, vehicles..." 
             className="w-full pl-12 pr-4 py-2.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500 focus:bg-white transition-all text-sm font-medium"
           />

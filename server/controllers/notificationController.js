@@ -1,1 +1,0 @@
-// notificationController.js placeholder

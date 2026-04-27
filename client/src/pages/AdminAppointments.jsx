@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getAllAppointments, assignTechnician } from "../services/appointmentService";
+import { getAllAppointments } from "../services/appointmentService";
 import api from "../services/api";
 import { Calendar, User, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
-  const [technicians, setTechnicians] = useState([]);
+ 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -18,12 +18,11 @@ const AdminAppointments = () => {
 
   const fetchData = async () => {
     try {
-      const [apptsData, techsData] = await Promise.all([
-        getAllAppointments(),
-        api.get("/user/technicians").then(res => res.data)
+      const [apptsData] = await Promise.all([
+        getAllAppointments()
       ]);
       setAppointments(apptsData);
-      setTechnicians(techsData);
+      
     } catch (err) {
       setError("Failed to load appointment data.");
     } finally {
@@ -31,16 +30,7 @@ const AdminAppointments = () => {
     }
   };
 
-  const handleAssignTech = async (appointmentId, techId) => {
-    try {
-      await assignTechnician(appointmentId, techId);
-      setAppointments(prev => prev.map(a => a._id === appointmentId ? { ...a, technicianId: techId } : a));
-      setSuccess("Technician assigned successfully!");
-      setTimeout(() => setSuccess(""), 3000);
-    } catch (err) {
-      setError("Failed to assign technician.");
-    }
-  };
+
 
   if (loading) return <div className="p-10 text-center text-slate-600">Loading Appointments...</div>;
 
@@ -69,7 +59,7 @@ const AdminAppointments = () => {
                 <th className="px-4 py-4">Service Type</th>
                 <th className="px-4 py-4">Status</th>
                 <th className="px-4 py-4">Technician</th>
-                <th className="px-4 py-4">Assign Tech</th>
+               
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
@@ -98,18 +88,7 @@ const AdminAppointments = () => {
                   <td className="px-4 py-4 text-sm">
                     {appt.technicianId?.name || <span className="text-slate-600 italic">Not Assigned</span>}
                   </td>
-                  <td className="px-4 py-4">
-                    <select
-                      className="bg-white border border-slate-200 text-slate-900 text-xs rounded-md p-2 focus:ring-1 focus:ring-blue-500 outline-none"
-                      value={appt.technicianId?._id || appt.technicianId || ""}
-                      onChange={(e) => handleAssignTech(appt._id, e.target.value)}
-                    >
-                      <option value="">Choose Tech</option>
-                      {technicians.map(tech => (
-                        <option key={tech._id} value={tech._id}>{tech.name}</option>
-                      ))}
-                    </select>
-                  </td>
+                
                 </tr>
               ))}
             </tbody>
