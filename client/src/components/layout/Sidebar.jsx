@@ -68,6 +68,7 @@ const Sidebar = ({ collapsed }) => {
           <NavLink
             key={item.name}
             to={item.path}
+            end={item.path === '/admin'}
             className={({ isActive }) => `
               group flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300 no-underline
               ${isActive 

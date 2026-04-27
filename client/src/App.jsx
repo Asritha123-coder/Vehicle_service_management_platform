@@ -36,6 +36,7 @@ import AdminUsers from './pages/AdminUsers';
 import AdminAppointments from './pages/AdminAppointments';
 import AdminInvoices from './pages/AdminInvoices';
 import ServiceCenterDashboard from './pages/ServiceCenterDashboard';
+import AddUser from './pages/AddUser';
 
 // Shared Feature Pages
 import InvoiceDetails from './pages/InvoiceDetails';
@@ -61,6 +62,7 @@ function App() {
           <Route path="/admin/appointments" element={<ProtectedRoute allowedRoles={['admin', 'service_center']}><AdminAppointments /></ProtectedRoute>} />
           <Route path="/admin/invoices" element={<ProtectedRoute allowedRoles={['admin', 'service_center']}><AdminInvoices /></ProtectedRoute>} />
           <Route path="/service-center" element={<ProtectedRoute allowedRoles={['service_center']}><ServiceCenterDashboard /></ProtectedRoute>} />
+          <Route  path="/admin/add-user" element={<ProtectedRoute allowedRoles={['admin']}><AddUser /></ProtectedRoute> } />
       </Route>
 
       {/* Customer Layout Routes */}

@@ -77,15 +77,13 @@ const AdminDashboard = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <button className="p-3 bg-white border border-slate-200 text-slate-600 rounded-2xl hover:text-blue-600 hover:border-blue-200 transition-all">
-            <MoreHorizontal size={20} />
-          </button>
-          <button
-            onClick={() => navigate('/admin/users')}
-            className="px-6 py-3 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-blue-600 transition-all shadow-xl shadow-slate-200"
-          >
-            <Plus size={16} /> Add Staff
-          </button>
+         
+        <button
+          onClick={() => navigate('/admin/add-user')}
+          className="px-6 py-3 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-blue-600 transition-all shadow-xl shadow-slate-200"
+        >
+          <Plus size={16} /> Add Staff
+        </button>
         </div>
       </header>
 
@@ -94,6 +92,7 @@ const AdminDashboard = () => {
           <AlertCircle size={20} /> {error}
         </div>
       )}
+     
 
       {/* Modern Stat Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">

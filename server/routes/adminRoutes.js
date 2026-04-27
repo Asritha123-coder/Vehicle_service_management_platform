@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllUsers, updateUserRole, deleteUser } from "../controllers/adminController.js";
+import { getAllUsers, updateUserRole, deleteUser, createUser } from "../controllers/adminController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import roleMiddleware from "../middleware/roleMiddleware.js";
 
@@ -13,5 +13,5 @@ router.use(roleMiddleware("admin"));
 router.get("/users", getAllUsers);
 router.put("/user/:id", updateUserRole);
 router.delete("/user/:id", deleteUser);
-
+router.post("/user", createUser);
 export default router;
