@@ -42,15 +42,7 @@ const Navbar = ({ toggleSidebar }) => {
       </div>
 
       <div className="flex items-center gap-6">
-        <div className="hidden lg:flex items-center gap-2">
-            <button className="p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all relative">
-                <Bell size={20} />
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full border-2 border-white animate-pulse"></span>
-            </button>
-            <button className="p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-2xl transition-all">
-                <Settings size={20} />
-            </button>
-        </div>
+      
 
         <div className="h-8 w-[1px] bg-slate-100 mx-2 hidden sm:block"></div>
 

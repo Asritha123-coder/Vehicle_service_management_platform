@@ -20,6 +20,8 @@ import {
 
 const ServiceCenterDashboard = () => {
   const [appointments, setAppointments] = useState([]);
+  const [filterText, setFilterText] = useState("");
+  const [viewPref, setViewPref] = useState("ALL");
   const [technicians, setTechnicians] = useState([]);
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,6 +81,23 @@ const ServiceCenterDashboard = () => {
     }
   };
 
+  // Filtering logic
+  const filteredAppointments = appointments.filter(appt => {
+    const matchesText = filterText
+      ? (
+          (appt.vehicleId?.model || "").toLowerCase().includes(filterText.toLowerCase()) ||
+          (appt.vehicleId?.vehicleNumber || "").toLowerCase().includes(filterText.toLowerCase()) ||
+          (appt.customerName || "").toLowerCase().includes(filterText.toLowerCase())
+        )
+      : true;
+    const matchesPref =
+      viewPref === "ALL" ? true :
+      viewPref === "PENDING" ? appt.serviceStatus === "PENDING" :
+      viewPref === "IN_PROGRESS" ? appt.serviceStatus === "IN_PROGRESS" :
+      viewPref === "COMPLETED" ? appt.serviceStatus === "COMPLETED" : true;
+    return matchesText && matchesPref;
+  });
+
   return (
     <div className="animate-spring-up">
       <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -115,13 +134,30 @@ const ServiceCenterDashboard = () => {
       {/* High Performance Table Container */}
       <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
         <div className="p-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
-          <div className="relative group max-w-xs w-  full">
+          <div className="relative group max-w-xs w-full">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-600 transition-colors" />
-            <input  style={{ paddingLeft: '45px' }}type="text" placeholder="Filter bookings..." className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/5 transition-all" />
+            <input
+              style={{ paddingLeft: '45px' }}
+              type="text"
+              placeholder="Filter bookings..."
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-100 rounded-xl text-xs font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/5 transition-all"
+              value={filterText}
+              onChange={e => setFilterText(e.target.value)}
+            />
           </div>
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all">
-            <Filter size={14} /> View Preferences
-          </button>
+          <div className="flex items-center gap-2">
+            <Filter size={14} />
+            <select
+              className="px-4 py-2.5 bg-white border border-slate-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all"
+              value={viewPref}
+              onChange={e => setViewPref(e.target.value)}
+            >
+              <option value="ALL">All</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="PENDING">Pending</option>
+            </select>
+          </div>
         </div>
 
         <div className="overflow-x-auto">
@@ -139,10 +175,10 @@ const ServiceCenterDashboard = () => {
             <tbody className="divide-y divide-slate-50">
               {loading ? (
                 <tr><td colSpan="6" className="p-20 text-center text-slate-600 font-bold uppercase tracking-widest text-xs">Loading operational pulse...</td></tr>
-              ) : appointments.length === 0 ? (
+              ) : filteredAppointments.length === 0 ? (
                 <tr><td colSpan="6" className="p-20 text-center text-slate-600 font-bold uppercase tracking-widest text-xs">No active bookings found</td></tr>
               ) : (
-                appointments.map((appt) => {
+                filteredAppointments.map((appt) => {
                   const invoice = invoices.find(inv => inv.appointmentId === appt._id);
                   const status = appt.serviceStatus || appt.status;
 

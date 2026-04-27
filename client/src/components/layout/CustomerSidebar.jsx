@@ -6,7 +6,6 @@ import {
   Calendar, 
   History, 
   FileText, 
-  Settings,
   Activity,
   LogOut,
   Wrench,
@@ -27,53 +26,70 @@ const CustomerSidebar = ({ collapsed }) => {
   ];
 
   return (
-    <div className={`flex flex-col h-full bg-white border-r border-slate-100 shadow-sm transition-all duration-300 ${collapsed ? 'w-20' : 'w-64'}`}>
-      <div className={`p-8 pb-10 flex items-center gap-3 ${collapsed ? 'justify-center p-6' : ''}`}>
-        <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex-shrink-0 flex items-center justify-center shadow-lg shadow-blue-200 ring-4 ring-blue-50">
-          <Wrench className="text-white" size={20} />
-        </div>
-        <span className="text-xl font-black text-slate-900 tracking-tighter ml-2">ServiceHub</span>
-        {/* {!collapsed && (
-          <span className="text-xl font-black text-slate-900 tracking-tighter whitespace-nowrap overflow-hidden transition-all">
-            Service<span className="text-blue-600">Hub</span>
-          </span>
-        )} */}
-      </div>
+    <div className={`flex flex-col h-full bg-white border-r border-slate-100 shadow-sm transition-all duration-300 overflow-hidden ${collapsed ? 'w-20' : 'w-64'}`}>
       
-      <nav className="flex-1 px-4 space-y-1 overflow-hidden">
-        {!collapsed && <p className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 whitespace-nowrap">Main Menu</p>}
+      {/* Logo */}
+      <div className={`flex items-center gap-3 ${collapsed ? 'justify-center' : ''}`} style={{ padding: collapsed ? '24px 0' : '24px' }}>
+        <div className="w-10 h-10 min-w-10 min-h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+          <Wrench className="text-white" size={28} />
+        </div>
+        {!collapsed && (
+          <span className="text-xl font-black text-slate-900 tracking-tighter whitespace-nowrap">
+            ServiceHub
+          </span>
+        )}
+      </div>
+
+      {/* Menu */}
+      <nav className="flex-1 px-3 space-y-1 mt-4">
+        {!collapsed && (
+          <p className="px-3 text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">
+            Main Menu
+          </p>
+        )}
+
         {menuItems.map((item) => (
           <NavLink
             key={item.name}
             to={item.path}
             end={item.path === '/customer'}
             className={({ isActive }) => `
-              group flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300 no-underline
+              group flex items-center justify-between px-3 py-3 rounded-xl transition-all duration-300
               ${isActive 
-                ? 'bg-blue-600 text-white shadow-xl shadow-blue-200' 
+                ? 'bg-blue-600 text-white' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-blue-600'}
               ${collapsed ? 'justify-center' : ''}
             `}
           >
             <div className="flex items-center gap-3">
-              <item.icon size={20} className="flex-shrink-0 transition-colors" />
-              {!collapsed && <span className="font-bold text-sm tracking-tight whitespace-nowrap">{item.name}</span>}
+              <item.icon size={24} />
+              {!collapsed && (
+                <span className="font-bold text-sm whitespace-nowrap">
+                  {item.name}
+                </span>
+              )}
             </div>
-            {!collapsed && <ChevronRight className={`w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${item.path === '/customer' ? 'text-white' : 'text-blue-600'}`} />}
+
+            {!collapsed && (
+              <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 text-blue-600" />
+            )}
           </NavLink>
         ))}
       </nav>
 
-      <div className="p-6 mt-auto border-t border-slate-50 space-y-2">
-       
+      {/* Logout */}
+      <div className="p-4 border-t">
         <button 
           onClick={logout}
-          className={`flex items-center gap-3 text-rose-500 hover:text-rose-600 w-full px-4 py-3 rounded-xl hover:bg-rose-50 transition-all font-bold text-sm tracking-tight ${collapsed ? 'justify-center' : ''}`}
+          className={`flex items-center gap-3 text-rose-500 hover:text-rose-600 w-full px-3 py-3 rounded-xl hover:bg-rose-50 transition-all font-bold text-sm ${
+            collapsed ? 'justify-center' : ''
+          }`}
         >
-          <LogOut size={20} className="flex-shrink-0" />
-          {!collapsed && <span className="whitespace-nowrap">Logout</span>}
+          <LogOut size={24} />
+          {!collapsed && <span>Logout</span>}
         </button>
       </div>
+
     </div>
   );
 };

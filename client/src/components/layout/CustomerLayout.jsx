@@ -8,11 +8,15 @@ const CustomerLayout = () => {
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
-      <div className={`hidden lg:flex flex-shrink-0 transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-20'}`}>
-        <CustomerSidebar />
+
+      {/* Sidebar */}
+      <div className="hidden lg:flex">
+        <CustomerSidebar collapsed={!sidebarOpen} />
       </div>
 
+      {/* Main Content */}
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+        
         <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         
         <main className="flex-1 relative overflow-y-auto focus:outline-none p-4 md:p-8">
@@ -20,6 +24,7 @@ const CustomerLayout = () => {
             <Outlet />
           </div>
         </main>
+
       </div>
     </div>
   );
