@@ -126,10 +126,8 @@ Vehicle_service_management_platform/
 
 ## Sample Credentials
 
-- **Customer:** asritha1905@gmail.com / Asri@123
-- **Staff:** maheswari@gmail.com / 123456789
 - **Admin:** admin@gmail.com / 123
-- **Technician:** akhila@gmail.com / 12345678
+
 
 ---
 
